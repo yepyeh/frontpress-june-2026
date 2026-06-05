@@ -1,0 +1,23 @@
+{
+  "repo": "krstivoja/frontpress-studio",
+  "core": [
+    ".htaccess",
+    "bootstrap.php",
+    "index.php",
+    "router.php",
+    "sample.config.php",
+    "admin/index.php",
+    "admin/assets/",
+    "cms/VERSION",
+    "cms/manifest.json",
+    "cms/composer.json",
+    "cms/composer.lock",
+    "cms/lib/",
+    "cms/templates/",
+    "cms/vendor/",
+    "cms/starters/blank-twig/",
+    "cms/starters/blank-php/",
+    "cms/starters/debug-twig/",
+    "cms/starters/debug-php/"
+  ]
+}

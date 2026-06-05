@@ -1,0 +1,42 @@
+{
+    "site": {
+        "name": "FrontPress Studio",
+        "base": "/"
+    },
+    "taxonomies": {
+        "categories": {
+            "label": "Categories",
+            "post_types": ["blog"],
+            "fields": [
+                {
+                    "name": "categories",
+                    "type": "array",
+                    "widget": "checkbox",
+                    "multiple": true,
+                    "items": [],
+                    "hidden": false
+                }
+            ]
+        },
+        "tags": {
+            "label": "Tags",
+            "post_types": ["blog"],
+            "fields": [
+                {
+                    "name": "tags",
+                    "type": "array",
+                    "widget": "checkbox",
+                    "multiple": true,
+                    "items": [],
+                    "hidden": false
+                }
+            ]
+        }
+    },
+    "active_theme": "blank",
+    "uploads": {
+        "max_mb": 5,
+        "max_width": 0,
+        "max_height": 0
+    }
+}

@@ -1,0 +1,33 @@
+# FrontPress Studio — Apache rules.
+#
+# The WordPress-style protection model: framework PHP files live in the
+# webroot but guard themselves with `defined('FRONTPRESS_BOOT') || exit;`, and
+# config.php is plain PHP that emits nothing on direct hit. Apache only
+# needs to (a) block raw markdown source serving, (b) prevent PHP
+# execution under uploads paths, and (c) route clean URLs to the front
+# controllers.
+
+# Required so the `assets` symlink → `site/themes/<active>/assets` resolves.
+Options +FollowSymLinks -Indexes
+
+# Block raw markdown source (the framework parses these server-side).
+RedirectMatch 404 \.md$
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+
+# Belt-and-braces: block PHP execution under any uploads path.
+RewriteRule ^.+/uploads/.*\.(php[0-9]?|phtml|phar)$ - [F,L,NC]
+
+# Admin SPA: virtual URLs under /admin/ route to admin/index.php.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^admin/ /admin/index.php [L,QSA]
+
+# Front controller for everything else.
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>

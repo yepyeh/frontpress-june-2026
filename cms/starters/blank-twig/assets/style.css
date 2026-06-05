@@ -1,0 +1,141 @@
+/* --- modern reset (subset of Andy Bell's; scoped to what most pages need) --- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body, h1, h2, h3, h4, h5, h6, p, blockquote, dl, dd, figure { margin: 0; }
+ul, ol { margin: 0; padding: 0; }
+img, picture, video, svg { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
+
+/* --- base typography --- */
+:root {
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --color-fg: #1a1a1a;
+  --color-bg: #ffffff;
+  --color-muted: #6b6b6b;
+  --color-rule: #e5e5e5;
+  --max-w: 720px;
+
+  /* Optional "framed page" pattern. Set --max-w-page to a value like
+     1920px and pick a contrasting --page-frame-bg (e.g. #000) to render
+     the body as a capped wrapper with a colored frame on wider viewports.
+     Defaults are no-ops so the starter looks blank out of the box. */
+  --max-w-page:    none;
+  --page-frame-bg: var(--color-bg);
+}
+
+html { font-family: var(--font-sans); color: var(--color-fg); background: var(--page-frame-bg); line-height: 1.55; }
+body {
+  max-width: var(--max-w-page);
+  margin-inline: auto;
+  padding: 2rem 1rem;
+  background: var(--color-bg);
+  overflow-x: clip; /* contain any full-bleed children inside the wrapper */
+}
+
+/* --- centred content column --- */
+.container { max-width: var(--max-w); margin-inline: auto; }
+
+/* --- structure --- */
+.site-header,
+.site-footer { padding-block: 1rem; }
+.site-footer { color: var(--color-muted); font-size: 0.875rem; border-top: 1px solid var(--color-rule); margin-top: 3rem; padding-top: 1.25rem; }
+
+.site-nav ul { display: flex; gap: 1.25rem; list-style: none; }
+.site-nav a { text-decoration: none; }
+.site-nav a:hover { text-decoration: underline; }
+
+main { padding-block: 2rem; }
+
+/* --- prose --- */
+h1, h2, h3 { line-height: 1.25; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.5rem; margin-top: 2rem; }
+h3 { font-size: 1.125rem; margin-top: 1.5rem; }
+p, ul, ol, blockquote { margin-block: 0.75rem; }
+ul, ol { padding-left: 1.25rem; }
+blockquote { border-left: 3px solid var(--color-rule); padding-left: 1rem; color: var(--color-muted); }
+code { font-family: var(--font-mono); font-size: 0.9em; background: #f4f4f4; padding: 0.1em 0.3em; border-radius: 3px; }
+pre { background: #f4f4f4; padding: 1rem; border-radius: 4px; overflow-x: auto; }
+pre code { background: none; padding: 0; }
+hr { border: 0; border-top: 1px solid var(--color-rule); margin-block: 2rem; }
+a { color: #0a58ca; }
+
+/* --- archive list --- */
+.archive-list { list-style: none; }
+.archive-item { padding-block: 0.75rem; border-bottom: 1px solid var(--color-rule); }
+.archive-item:last-child { border-bottom: 0; }
+.archive-item a { text-decoration: none; font-weight: 500; }
+.archive-item a:hover { text-decoration: underline; }
+.archive-meta { color: var(--color-muted); font-size: 0.875rem; }
+
+/* --- pagination --- */
+.pagination { display: flex; gap: 1rem; align-items: center; margin-top: 2rem; font-size: 0.9rem; }
+.pagination a { text-decoration: none; }
+.pagination a:hover { text-decoration: underline; }
+
+/* --- content images ---
+   The reset already sets `max-width: 100%; height: auto` so the browser
+   scales images down proportionally to fit the column without stretching.
+   These rules add the visual treatment: centered placement, vertical
+   breathing room, and rounded corners. We deliberately don't force a
+   width — small icons or graphics shouldn't be upscaled and blurred. */
+article img,
+.prose img,
+figure img { margin-inline: auto; margin-block: 1.5rem; border-radius: 6px; }
+
+figure { margin-block: 1.5rem; }
+figure img { margin-block: 0; }
+figcaption { text-align: center; font-size: 0.875rem; color: var(--color-muted); margin-top: 0.5rem; }
+
+.post-featured { margin-block: 1.5rem; }
+.post-featured img { margin: 0; }
+
+/* --- contact form (rendered by `contact_form()` Twig helper) ---
+   Minimal styling for the bundled contact template. Themes that want
+   something fancier can replace the `.fp-form*` rules or stop using the
+   helper and roll their own markup against the same /submit/<form>
+   endpoint. */
+.fp-form { display: grid; gap: 1rem; max-width: 36rem; }
+.fp-form__row { display: grid; gap: 0.25rem; font-size: 0.875rem; }
+.fp-form__row span { font-weight: 500; color: var(--color-fg); }
+.fp-form__row input,
+.fp-form__row textarea,
+.fp-form__row select {
+  font: inherit;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-rule);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--color-fg);
+}
+.fp-form__row input:focus,
+.fp-form__row textarea:focus,
+.fp-form__row select:focus {
+  outline: 2px solid #0a58ca;
+  outline-offset: -1px;
+  border-color: transparent;
+}
+.fp-form__row textarea { min-height: 8rem; resize: vertical; }
+.fp-form__cb { display: flex; gap: 0.5rem; align-items: center; font-size: 0.875rem; }
+.fp-form button[type="submit"] {
+  align-self: start;
+  padding: 0.5rem 1.25rem;
+  border: 0;
+  border-radius: 6px;
+  background: var(--color-fg);
+  color: var(--color-bg);
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+.fp-form button[type="submit"]:hover { background: #000; }
+.fp-form__status {
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+.fp-form__status--ok  { background: #ecfdf5; color: #065f46; border: 1px solid #6ee7b7; }
+.fp-form__status--err { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
